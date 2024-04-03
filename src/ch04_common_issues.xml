@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE chapter [
+
+<!ENTITY % crl_ent PUBLIC "crl.ent" "http://www.crifan.com/files/res/docbook/entity/crl.ent">
+%crl_ent;
+
+]>
+
+<chapter xml:id="common_issues" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xl="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:ns5="http://www.w3.org/1998/Math/MathML"
+         xmlns:ns4="http://www.w3.org/1999/xhtml"
+         xmlns:ns3="http://www.w3.org/2000/svg"
+         xmlns:ns="http://docbook.org/ns/docbook">
+<title>常见的JSON相关的问题及解决办法</title>
+
+<para></para>
+
+<sect1 xml:id="add_comments_for_json"><title>给JSON添加注释</title>
+    <tip xml:id="tip.add_comments_for_json"><title>相关旧帖</title>
+        <para><link xl:href="http://www.crifan.com/add_comments_for_json">【部分解决】Json中添加注释</link></para>
+    </tip>
+</sect1>
+
+<sect1 xml:id="single_quote_double_quote"><title>JSON中的字符串被括起来的，只能是双引号，不能是单引号</title>
+    <tip xml:id="tip.single_quote_double_quote"><title>相关旧帖</title>
+        <para><link xl:href="http://www.crifan.com/python_json_loads_valueerror_expecting_property_name_line_1_column_1_char_1">【已解决】Python中使用json.loads解码字符串时出错：ValueError: Expecting property name: line 1 column 1 (char 1)</link></para>
+    </tip>
+</sect1>
+
+<sect1 xml:id="not_include_invalid_char"><title>JSON中的字符串中不能包含非法字符</title>
+    <tip xml:id="tip.not_include_invalid_char"><title>相关旧帖</title>
+        <para><link xl:href="http://www.crifan.com/use_python_json_loads_parse_string_contain_newline_will_fail_error">【已解决】Python中json.loads解析包含\n的字符串会出错</link></para>
+    </tip>
+</sect1>
+
+<sect1 xml:id="no_last_comma_in_list"><title>JSON中的列表变量内的最后位置，不能有多余的逗号</title>
+    <tip xml:id="tip.no_last_comma_in_list"><title>相关旧帖</title>
+        <para><link xl:href="http://www.crifan.com/python_json_loads_valueerror_no_json_object_could_be_decoded">【已解决】Python中用json.loads解码字符串出错：ValueError: No JSON object could be decoded</link></para>
+    </tip>
+</sect1>
+
+<sect1 xml:id="json_str_encoding"><title>要注意JSON字符串的编码</title>
+    <tip xml:id="tip.json_str_encoding"><title>相关旧帖</title>
+        <para><link xl:href="http://www.crifan.com/notation_about_use_python_json_loads">【经验记录】Python中json.loads的时候出错->要注意要解码的Json字符的编码</link></para>
+    </tip>
+</sect1>
+
+</chapter>

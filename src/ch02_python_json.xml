@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE chapter [
+
+<!ENTITY % crl_ent PUBLIC "crl.ent" "http://www.crifan.com/files/res/docbook/entity/crl.ent">
+%crl_ent;
+
+]>
+
+<chapter    xml:id="python_json"
+        xmlns="http://docbook.org/ns/docbook"
+        xmlns:xl="http://www.w3.org/1999/xlink"
+        xmlns:xi="http://www.w3.org/2001/XInclude"
+        xmlns:ns5="http://www.w3.org/1998/Math/MathML"
+        xmlns:ns4="http://www.w3.org/1999/xhtml"
+        xmlns:ns3="http://www.w3.org/2000/svg"
+        xmlns:ns="http://docbook.org/ns/docbook">
+<title>Python中处理JSON字符串</title>
+
+<para></para>
+
+<tip xml:id="tip.python_json"><title>相关旧帖</title>
+    <para><link xl:href="http://www.crifan.com/summary_what_is_json_and_how_to_process_json_string">【整理】什么是JSON+如何处理JSON字符串</link></para>
+    <para><link xl:href="http://www.crifan.com/format_dictionary_list_variable_into_prettified_tree_like_with_indent_json_string_then_output">【整理】Python中将（字典，列表等）变量格式化成（漂亮的，树形的，带缩进的，JSON方式的）字符串输出</link></para>
+    <para><link xl:href="http://www.crifan.com/use_beautifulsoup_parse_the_backslash_style_html_json_string">【已解决】用BeautifulSoup解析Html格式的Json字符串</link></para>
+</tip>
+
+<para>Python中，有专门的JSON处理模块，名字就叫做：json</para>
+<para></para>
+
+<sect1 xml:id="json_single_quote"><title>json中如果内容中包含单引号或双引号如何处理</title>
+    <para>如果json字符串的内容中包含单引号或双引号，直接用json.loads去转换的话，则会导致出错。</para>
+    <para>解决办法是，把所含的（用双引号括起来的）内容中单引号或双引号前，加上反斜杠即可。</para>
+    <para>以双引号为例，即，从<screen>"key":"value incldue " "</screen>变为<screen>"key":"value incldue \" "</screen></para>
+</sect1>
+
+<sect1 xml:id="json_dict_key_parenthesis"><title>字典类型的json字符串中的key一定要用双引号括起来</title>
+    <para>json字符串是字典变量类型的字符串的时候，对应字典中的key部分，是需要用双引号括起来的，否则json.loads会出错的。</para>
+    <para>详情参看：<link xl:href="http://www.crifan.com/python_json_loads_valueerror_expecting_property_name/">【已解决】Python中用json.loads去解析字符串出错：ValueError: Expecting property name: line 1 column 51 (char 51)</link></para>
+    <para></para>
+</sect1>
+
+<sect1 xml:id="json_dict_key_single_quote"><title>字典类型的json字符串中的key要用双引号，而不能用单引号</title>
+    <para>json字符串是字典变量类型的字符串的时候，对应字典中的key部分，注意是用双引号括起来，而不能是单引号，否则也是会导致json.loads出错的。</para>
+    <para>比如对于字符串变量timeFillingInfoJson：</para>
+    <screen>{'2012' : {"month" : [0,0,0,0,0,0,0,-1,-1,-1,-1,-1],"totalCount" : '0'},'2011' : {"month" : [0,0,0,0,0,0,0,0,0,0,0,0],"totalCount" : '0'},'2010' : {"month" : [5,21,22,20,11,7,8,11,12,0,0,1],"totalCount" : '118'},'2009' : {"month" : [0,13,9,20,63,32,35,32,24,39,15,6],"totalCount" : '288'},'2008' : {"month" : [6,40,83,66,35,35,11,5,3,4,0,1],"totalCount" : '289'},'2007' : {"month" : [-1,-1,-1,6,0,19,10,8,3,41,47,44],"totalCount" : '178'}}</screen>
+    <para>用代码：</para>
+    <programlisting language="python">
+timeFillingInfoDict = json.loads(timeFillingInfoJson);
+logging.info("timeFillingInfoDict=%s", timeFillingInfoDict);
+    </programlisting>
+    <para>去解析会出错：</para>
+    <screen>ValueError: Expecting property name: line 1 column 1 (char 1)</screen>
+    <para>而把单引号替换为双引号后：</para>
+    <screen>{"2012" : {"month" : [0,0,0,0,0,0,0,-1,-1,-1,-1,-1],"totalCount" : "0"},"2011" : {"month" : [0,0,0,0,0,0,0,0,0,0,0,0],"totalCount" : "0"},"2010" : {"month" : [5,21,22,20,11,7,8,11,12,0,0,1],"totalCount" : "118"},"2009" : {"month" : [0,13,9,20,63,32,35,32,24,39,15,6],"totalCount" : "288"},"2008" : {"month" : [6,40,83,66,35,35,11,5,3,4,0,1],"totalCount" : "289"},"2007" : {"month" : [-1,-1,-1,6,0,19,10,8,3,41,47,44],"totalCount" : "178"}}</screen>
+    <para>就可以正常解析，得到对应的dict变量了：</para>
+    <screen>timeFillingInfoDict={u'2007': {u'totalCount': u'178', u'month': [-1, -1, -1, 6, 0, 19, 10, 8, 3, 41, 47, 44]}, u'2008': {u'totalCount': u'289', u'month': [6, 40, 83, 66, 35, 35, 11, 5, 3, 4, 0, 1]}, u'2009': {u'totalCount': u'288', u'month': [0, 13, 9, 20, 63, 32, 35, 32, 24, 39, 15, 6]}, u'2011': {u'totalCount': u'0', u'month': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}, u'2010': {u'totalCount': u'118', u'month': [5, 21, 22, 20, 11, 7, 8, 11, 12, 0, 0, 1]}, u'2012': {u'totalCount': u'0', u'month': [0, 0, 0, 0, 0, 0, 0, -1, -1, -1, -1, -1]}}</screen>
+    <note xml:id="note.dict_json_key_not_single_quote"><title>dict类型json字符串中的key，如果用单引号，是不行的</title>
+        <para>另外，也去尝试过了，把双引号都替换为单引号：</para>
+        <programlisting language="python">
+timeFillingInfoJson = timeFillingInfoJson.replace('"', "'");
+timeFillingInfoDict = json.loads(timeFillingInfoJson);
+logging.info("timeFillingInfoDict=%s", timeFillingInfoDict);
+        </programlisting>
+        <para>结果同样会出错的：</para>
+        <screen>ValueError: Expecting property name: line 1 column 1 (char 1)</screen>
+        <para>所以，看来dict的json字符串中的key，必须是用双引号括起来的，不能少了双引号，也不能是单引号，<emphasis>只能是双引号</emphasis>。</para>
+    </note>
+</sect1>
+
+</chapter>
